@@ -6,6 +6,6 @@ This is a modified version of [the CStringArray by @neilpa](https://gist.github.
 
 Modifications:
 
-- Changed the constructor arguments to '[String?]'
+- Changed the constructor arguments to `[String?]`
 
 - Be "printable"
