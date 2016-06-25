@@ -32,4 +32,10 @@ class CStringArrayTests: XCTestCase {
         XCTAssertEqual(strcmp(arr.pointers[0], "foo"), 0)
         XCTAssert(arr.pointers[1] == nil)
     }
+
+    func testPrintable() {
+        let arr = CStringArray(["foo", nil])
+        XCTAssertEqual(arr.description, "CStringArray([\"foo\", NULL])")
+
+    }
 }

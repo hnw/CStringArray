@@ -15,7 +15,7 @@ import Foundation
 // dealing with a small number of constant C strings since you can nest closures. But
 // this breaks down when it's dynamic, e.g. creating the char** argv array for an exec
 // call.
-class CString {
+class CString : CustomStringConvertible {
     private let _len: Int
     let buffer: UnsafeMutablePointer<CChar>
     
@@ -30,17 +30,27 @@ class CString {
     deinit {
         buffer.dealloc(_len)
     }
+
+    var description: String {
+        return String.fromCString(buffer)!
+    }
 }
 
 // An array of C-style strings (e.g. char**) for easier interop.
-public class CStringArray {
+public class CStringArray : CustomStringConvertible {
     // Have to keep the owning CString's alive so that the pointers
     // in our buffer aren't dealloc'd out from under us.
     private let _strings: [CString?]
     public var pointers: [UnsafeMutablePointer<CChar>]
-    
+
     public init(_ strings: [String?]) {
         _strings = strings.map { $0.map { CString($0) } }
         pointers = _strings.map { $0 != nil ? $0!.buffer : nil }
+    }
+
+    public var description: String {
+        let desc_array = _strings.map { $0 != nil ? "\"\($0!)\"" : "NULL" }
+        let desc = desc_array.joinWithSeparator(", ")
+        return "CStringArray([\(desc)])"
     }
 }
