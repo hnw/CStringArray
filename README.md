@@ -9,3 +9,14 @@ Modifications:
 - Changed the constructor arguments to `[String?]`
 
 - Be "printable"
+
+
+## Install with Carthage
+
+You can use [Carthage](https://github.com/Carthage/Carthage) to install CStringArray by adding it to your `Cartfile`:
+
+```
+github "hnw/CStringArray"
+```
+
+Then run `carthage update`.
